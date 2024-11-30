@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';  
-import { Redirect } from 'expo-router';
+import { useRouter } from 'expo-router';
+
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-
+  const router = useRouter();
   const handleLogin = async () => {
     if (email && password) {
       try {
@@ -18,7 +19,7 @@ const Login = () => {
         });
         if (response.data.success) {
           Alert.alert('Success', 'You have logged in successfully!');
-          return < Redirect href={'/home'} />;
+          router.push('/home');
         } else {
           Alert.alert('Error', 'Invalid email or password. Please try again.');
         }
